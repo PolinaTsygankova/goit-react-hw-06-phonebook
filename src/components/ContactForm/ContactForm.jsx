@@ -1,11 +1,12 @@
 import { useState } from 'react';
-// import React from 'react';
-import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux/es/exports';
+import { addContact } from 'redux/contactsSlice';
 import { Label, Text, Submitbtn } from './ContactForm.styled';
 
-export function ContactForm({ addContact }) {
+export function ContactForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+  const dispatch = useDispatch();
 
   function handleInput(e) {
     const { name, value } = e.target;
@@ -20,7 +21,7 @@ export function ContactForm({ addContact }) {
   function handleSumbit(e) {
     e.preventDefault();
 
-    addContact({ name, number });
+    dispatch(addContact(name, number));
 
     setName('');
     setNumber('');
@@ -58,7 +59,3 @@ export function ContactForm({ addContact }) {
     </form>
   );
 }
-
-ContactForm.propTypes = {
-  addContact: PropTypes.func.isRequired,
-};
